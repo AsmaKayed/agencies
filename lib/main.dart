@@ -1,11 +1,13 @@
 import 'package:agencies/agencies/agenciesMainPage.dart';
+import 'package:agencies/agencies/details/mainDetails.dart';
 import 'package:flutter/material.dart';
 
 
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false,
-      home: AgenciesMainPage()));
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AgencyDetails()));
 }
 
 

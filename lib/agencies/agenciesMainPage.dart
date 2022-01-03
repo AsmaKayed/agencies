@@ -1,5 +1,6 @@
 
 
+import 'package:agencies/agencies/details/mainDetails.dart';
 import 'package:agencies/models/agencies%20model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,7 @@ class _AgenciesMainPageState extends State<AgenciesMainPage> {
                                 height:size.height,
 
                       child: ListView.builder(
+                        physics: ScrollPhysics(),
                                     itemCount: foundUsers.length,
                                     itemBuilder: (context,index) {
                                       return _listItem(index);
@@ -150,15 +152,16 @@ class _AgenciesMainPageState extends State<AgenciesMainPage> {
         children: [
           Container(
             color: Colors.white,
-            height: 37,
+            height: 40,
             margin:const EdgeInsets.only(right: 15,left: 15,top: 20,bottom: 10,),
             child: Center(
               child: TextFormField(
-                decoration: InputDecoration(hintText: "Search for an agency", border: myinputborder(), //normal border
+                textAlign: TextAlign.start,
+                decoration: InputDecoration(hintText: "Search for an agency",border: myinputborder(), //normal border
                   enabledBorder: myinputborder(), //enabled border
                   focusedBorder: myfocusborder(),),
                 onChanged: (value) => onSearch(value),
-
+                  style: TextStyle(fontSize: 12),
               ),
             ),
           ),
@@ -170,95 +173,106 @@ class _AgenciesMainPageState extends State<AgenciesMainPage> {
 
   }
   _listItem(index){
-    return Container(
-      padding: const EdgeInsets.only(right: 10,left: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-      ),
-      width: 200,
-      height: 100,
-      child: Card(
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) =>  AgencyDetails(),
+          settings: RouteSettings(
+            arguments: foundUsers[index],
+          ),
+        ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.only(right: 10,left: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        width: 200,
+        height: 100,
+        child: Card(
 
-        child: Row(
-          children:  [
-            Container(
+          child: Row(
+            children:  [
+              Container(
 
-              padding: const EdgeInsets.only(right: 10,left: 10),
+                padding: const EdgeInsets.only(right: 10,left: 10),
 
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: foundUsers[index].image,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: foundUsers[index].image,
 
 
+                ),
+                width: 90,
+                height: 90,
               ),
-              width: 90,
-              height: 90,
-            ),
 
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-
-              child: Container(
-                width: 100,
-
-                child: Column(children: [
-                  Container(
-                    margin:const EdgeInsets.only(bottom: 10,top: 10,),
-                    child: Text("${foundUsers[index].names}"),
-                  ),
-                  Container(
-                      width:190,
-                      child: Text("${foundUsers[index].information}",style: TextStyle(fontSize: 10),)),
-
-
-                ],),
-              ),
-            ),
-            Spacer(),
-            Center(
-              child: SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Align(
-                  alignment: Alignment.centerRight,
 
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Container(
-                      padding:const EdgeInsets.only(right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                child: Container(
+                  width: 100,
 
-                        children: [
-                          Container(
+                  child: Column(children: [
+                    Container(
+                      margin:const EdgeInsets.only(bottom: 10,top: 10,),
+                      child: Text("${foundUsers[index].names}"),
+                    ),
+                    Container(
+                        width:190,
+                        child: Text("${foundUsers[index].information}",style: TextStyle(fontSize: 10),)),
 
-                            child: IconButton(
-                              icon: const Icon(Icons.chat_sharp,color:Colors.black,),
-                              onPressed: () { Scaffold.of(context).openDrawer(); },
-                              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+
+                  ],),
+                ),
+              ),
+              Spacer(),
+              Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Container(
+                        padding:const EdgeInsets.only(right: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+
+                          children: [
+                            Container(
+
+                              child: IconButton(
+                                icon: const Icon(Icons.chat_sharp,color:Colors.black,),
+                                onPressed: () { Scaffold.of(context).openDrawer(); },
+                                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                              ),
+
+                            ),
+                            Container(
+                              margin:const EdgeInsets.only(bottom: 40),
+                              child: IconButton(
+                                icon: const Icon(Icons.call,color:Colors.black,),
+                                onPressed: () { Scaffold.of(context).openDrawer(); },
+                                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                              ),
                             ),
 
-                          ),
-                          Container(
-                            margin:const EdgeInsets.only(bottom: 40),
-                            child: IconButton(
-                              icon: const Icon(Icons.call,color:Colors.black,),
-                              onPressed: () { Scaffold.of(context).openDrawer(); },
-                              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-                            ),
-                          ),
-
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
 
 
 
-          ],
-        ), ),
+            ],
+          ), ),
+      ),
     );
   }
   OutlineInputBorder myinputborder(){ //return type is OutlineInputBorder

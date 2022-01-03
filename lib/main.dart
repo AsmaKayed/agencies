@@ -1,5 +1,6 @@
 import 'package:agencies/agencies/agenciesMainPage.dart';
 import 'package:agencies/agencies/details/mainDetails.dart';
+import 'package:agencies/agencies/details/moreDetails.dart';
 import 'package:flutter/material.dart';
 
 
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AgencyDetails()));
+      home: AgenciesMainPage()));
 }
 
 

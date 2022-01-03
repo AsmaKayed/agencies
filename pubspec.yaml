@@ -28,6 +28,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_typeahead: ^3.2.4
+  google_maps_flutter: ^2.0.1
+  location: ^4.3.0
   image_picker: ^0.8.4+4
   flutter:
     sdk: flutter

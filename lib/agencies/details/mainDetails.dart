@@ -1,6 +1,9 @@
 
 
 import 'dart:io';
+import 'package:agencies/agencies/agenciesMainPage.dart';
+import 'package:agencies/agencies/details/moreDetails.dart';
+import 'package:agencies/models/agencies%20model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ class AgencyDetails extends StatefulWidget {
 }
 
 class _AgencyDetailsState extends State<AgencyDetails> {
+
   List<bool> isSelected = [false, false, false,false];
   int current_index=0;
   String? image;
@@ -34,6 +38,7 @@ class _AgencyDetailsState extends State<AgencyDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final foundUsers = ModalRoute.of(context)!.settings.arguments as Agency;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -44,7 +49,7 @@ class _AgencyDetailsState extends State<AgencyDetails> {
                 child: IconButton(
                   onPressed: () {
                     if (Platform.isAndroid) {
-                      SystemNavigator.pop();
+                      Navigator.pop(context,MaterialPageRoute(builder:(context)=>AgenciesMainPage()),);
                     } else if (Platform.isIOS) {
                       exit(0);
                     }
@@ -122,7 +127,7 @@ class _AgencyDetailsState extends State<AgencyDetails> {
                                            child: Column(children: [
                                              Center(child: Padding(
                                                padding: const EdgeInsets.fromLTRB(0, 60, 0, 10),
-                                               child: Text("Intertectra",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                               child: Text(foundUsers.names,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                                              )),
                                              Padding(
                                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -196,7 +201,9 @@ class _AgencyDetailsState extends State<AgencyDetails> {
             ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: TextButton(onPressed: (){}, child: Text("Company Details >>",style: TextStyle(fontSize: 10),)),
+                  child: TextButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MoreDetails()),);
+                  }, child: Text("Company Details >>",style: TextStyle(fontSize: 10),)),
                 ),
                 Container(
 
